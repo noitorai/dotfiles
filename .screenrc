@@ -1,0 +1,33 @@
+# change prefix key C-z
+# (alternatively it can be started with -e option : screen -e^z^z)
+escape ^z^z
+
+startup_message off
+autodetach on
+defscrollback 3000
+# hardstatus alwayslastline "%w"
+hardstatus alwayslastline "%{= wk} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%m/%d %{=b wb}%c@%H"
+
+shell /bin/bash
+
+# copy screen's clipboard to X's clipboard
+# bind y eval writebuf "exec !!! xclip /tmp/screen-exchange"
+
+# hardcopy config
+defscrollback 9999
+hardcopy_append on
+# bind h hardcopy -h $HOME/.screen/hardcopy/a${HOSTNAME}a${USER}a${YYYY}${MM}${DD}.log
+
+# read as utf-8, output as utf-8
+# prefix-C-u 
+bind ^U encoding utf8 utf8
+
+# read as utf8, output as euc
+bind u encoding utf8 euc
+
+# read as euc, output as utf-8
+# prefix-C-e
+bind ^E encoding euc utf8
+
+# read as euc, output as euc
+bind e encoding euc euc
