@@ -83,3 +83,5 @@ fi
 #if [ -f ~/load_xmodmap.sh ]; then
 #    . ~/load_xmodmap.sh &
 #fi
+
+export LC_TIME="C"  LC_MESSAGES="C"
