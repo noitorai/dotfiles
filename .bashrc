@@ -30,12 +30,10 @@ case "$TERM" in
 esac
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$\n'
     # <username>@<hostname>:<pwd>[YYYY/MM/DD HH:MM:SS]$
     PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;30m\][\$(date +%Y/%m/%d\ %H:%M:%S)]\[\033[00m\]\n\$ "
 else
-    #PS1='\u@\h:\w\$ '
-    PS1="\u@\h:\w[\$(date +%Y/%m/%d\ %H:%M:%S]\$\n"
+    PS1="\h\$ "
 fi
 unset color_prompt
 
@@ -80,3 +78,8 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+
+#if [ -f ~/load_xmodmap.sh ]; then
+#    . ~/load_xmodmap.sh &
+#fi
