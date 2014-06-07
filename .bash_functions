@@ -1,5 +1,6 @@
 INFO_FILE="${HOME}/.ssh-agent"
 PID_FILE="${HOME}/.ssh-agent.pid"
+GREP=
 
 is_debian() {
     if [ ! -x /usr/bin/lsb_release ] ; then
@@ -25,8 +26,24 @@ is_solaris() {
    return $?
 }
 
+set_grep() {
+        if [ ! "x${GREP}" = "x" ] ; then
+              return 0
+        fi
+
+        if [ is_debian = 0 -o is_ubuntu = 0 ] ; then
+                GREP="/bin/grep"
+        elif is_solaris ; then
+                GREP="/usr/sfw/bin/ggrep"
+        else
+                GREP="/bin/grep"
+        fi
+        return 0
+}
+
 check_sshagent() {
-    pgrep -lf -u ${USER} ssh-agent | grep -E -- "-a +${INFO_FILE}"
+    set_grep
+    pgrep -lf -u ${USER} ssh-agent | ${GREP} -E -- "-a +${INFO_FILE}"
     return $?
 }
 
