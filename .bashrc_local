@@ -7,6 +7,8 @@ export LC_TIME="C"  LC_MESSAGES="C"
 # load my functions
 source .bash_functions
 
+load_sshagent
+
 # add key if not exists
 if ! ssh-add -l ; then
     ssh-add
