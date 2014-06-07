@@ -24,3 +24,40 @@ terminate_sshagent() {
         ssh-agent -k
     fi
 }
+
+### config for saving script 
+#local SCRIPTDIR=~/scr
+#local TIMING=timing
+SCRIPTDIR=~/scr
+TIMING=timing
+
+function scr {
+    if [ ! -e ${SCRIPTDIR} ]; then
+        mkdir -p ${SCRIPTDIR}
+    fi
+    ARG=$1
+#    local SCRIPTFILE=${SCRIPTDIR}/`date "+%F_%H%M_%s"`_${ARG}
+    local SCRIPTFILE=${SCRIPTDIR}/`date "+%F_%H%M_%S"`_${ARG}
+#    LANG=C script -t -f ${SCRIPTFILE} 2> ${SCRIPTFILE}.${TIMING}
+    LANG=C script ${SCRIPTFILE}
+    gzip ${SCRIPTFILE}
+#    gzip ${SCRIPTFILE}.${TIMING}
+}
+
+function scrreplay {
+    SCRIPTFILE=${1%.gz}
+    gunzip ${SCRIPTFILE}.gz
+#    gunzip ${SCRIPTFILE}.${TIMING}.gz
+    echo
+#    echo "scriptreplay:begin $1 / divisor=$2"
+    echo "scriptreplay:begin $1"
+    echo
+#    scriptreplay ${SCRIPTFILE}.${TIMING} ${SCRIPTFILE} $2
+#    scriptreplay ${SCRIPTFILE}
+    cat ${SCRIPTFILE}
+    echo
+    echo "scriptreplay:end"
+    echo
+    gzip ${SCRIPTFILE}
+#    gzip ${SCRIPTFILE}.${TIMING}
+}
