@@ -1,6 +1,30 @@
 INFO_FILE="${HOME}/.ssh-agent"
 PID_FILE="${HOME}/.ssh-agent.pid"
 
+is_debian() {
+    if [ ! -x /usr/bin/lsb_release ] ; then
+        return 1
+    fi
+    lsb_release -a |grep Debian >/dev/null 2>&1
+    return $?
+}
+
+is_ubuntu() {
+    if [ ! -x /usr/bin/lsb_release ] ; then
+        return 1
+    fi
+    lsb_release -a |grep Ubuntu >/dev/null 2>&1
+    return $?
+}
+
+is_solaris() {
+   if [ ! -r /etc/release ] ; then
+           return 1
+   fi
+   cat /etc/release |grep Solaris >/dev/null 2>&1
+   return $?
+}
+
 check_sshagent() {
     pgrep -lf -u ${USER} ssh-agent | grep -E -- "-a +${INFO_FILE}"
     return $?
