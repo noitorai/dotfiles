@@ -66,6 +66,11 @@ terminate_sshagent() {
     fi
 }
 
+ssh_chkagent() {
+    load_sshagent
+    ssh $@
+}
+
 ### config for saving script 
 #local SCRIPTDIR=~/scr
 #local TIMING=timing
