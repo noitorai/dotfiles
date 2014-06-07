@@ -1,0 +1,17 @@
+# local configuration for each environment
+
+## locale setting
+# I prefer C in time output and message output
+export LC_TIME="C"  LC_MESSAGES="C"
+
+# load my functions
+source .bash_functions
+
+# add key if not exists
+if ! ssh-add -l ; then
+    ssh-add
+fi
+
+#if [ -f ~/load_xmodmap.sh ]; then
+#    . ~/load_xmodmap.sh &
+#fi

@@ -79,9 +79,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-
-#if [ -f ~/load_xmodmap.sh ]; then
-#    . ~/load_xmodmap.sh &
-#fi
-
-export LC_TIME="C"  LC_MESSAGES="C"
+if [ -f ~/.bashrc_local ] ; then
+    . ~/.bashrc_local
+fi
