@@ -54,7 +54,7 @@ load_sshagent() {
         if [ -e ${PID_FILE} ] ; then
             rm ${PID_FILE}
         fi 
-        ssh-agent -s -a ${PID_FILE} >${INFO_FILE}
+        ssh-agent -s -t 1h30m -a ${PID_FILE} >${INFO_FILE}
         source ${INFO_FILE}
     fi
 }
