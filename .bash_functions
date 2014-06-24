@@ -48,15 +48,20 @@ check_sshagent() {
 }
 
 load_sshagent() {
-    if check_sshagent ; then
-        source ${INFO_FILE}
-    else
+    check_sshagent
+    if [ $? -ne 0 ] ; then
         if [ -e ${PID_FILE} ] ; then
             rm ${PID_FILE}
         fi 
         ssh-agent -s -t 1h30m -a ${PID_FILE} >${INFO_FILE}
-        source ${INFO_FILE}
     fi
+    source ${INFO_FILE}
+
+    # add key if not exists
+    if ! ssh-add -l ; then
+        ssh-add
+    fi
+
 }
 
 terminate_sshagent() {
