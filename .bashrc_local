@@ -14,6 +14,8 @@ if ! ssh-add -l ; then
     ssh-add
 fi
 
+alias ssh=ssh_chkagent
+
 #if [ -f ~/load_xmodmap.sh ]; then
 #    . ~/load_xmodmap.sh &
 #fi
