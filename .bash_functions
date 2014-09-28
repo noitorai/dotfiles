@@ -43,7 +43,7 @@ set_grep() {
 
 check_sshagent() {
     set_grep
-    pgrep -V |grep 3.3.9
+    pgrep -V |grep 3.3.9 >/dev/null
     if [ $? -eq 0 ] ; then
       pgrep_op="-a"
     else
@@ -79,7 +79,7 @@ terminate_sshagent() {
 
 ssh_chkagent() {
     load_sshagent
-    ssh $@
+    `which ssh` $@
 }
 
 ### config for saving script 
