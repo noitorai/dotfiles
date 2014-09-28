@@ -84,4 +84,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
 [ -r /home/ishii/.byobu/prompt ] && . /home/ishii/.byobu/prompt   #byobu-prompt#
+
+if [ -f ~/.bashrc_local ] ; then
+    . ~/.bashrc_local
+fi
