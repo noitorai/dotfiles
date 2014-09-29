@@ -7,6 +7,4 @@ export LC_TIME="C"  LC_MESSAGES="C"
 # load my functions
 source ~/.bash_functions
 
-load_sshagent
-
 alias ssh=ssh_chkagent
