@@ -9,9 +9,10 @@
 #umask 022
 
 XMODMAP=/usr/bin/xmodmap
-if [ -f ~/.xmodmap ]; then
-    $XMODMAP ~/.xmodmap
-
+if [ "x$SSH_TTY" = "x" ]; then
+    if [ -f ~/.xmodmap ]; then
+        $XMODMAP ~/.xmodmap
+    fi
 fi
 
 # if running bash
