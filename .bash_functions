@@ -2,6 +2,18 @@ INFO_FILE="${HOME}/.ssh-agent"
 PID_FILE="${HOME}/.ssh-agent.pid"
 GREP=
 
+case "${HOSTNAME}" in
+    "gothica" | "nii-vdebian" ) 
+        SSH_AGENT_LIFETIME="8h"
+        ;;
+    "force" )
+        SSH_AGENT_LIFETIME="4h30m"
+        ;; 
+    * )
+        SSH_AGENT_LIFETIME="8h"
+        ;;
+esac
+
 is_debian() {
     if [ ! -x /usr/bin/lsb_release ] ; then
         return 1
@@ -59,13 +71,14 @@ load_sshagent() {
         if [ -e ${PID_FILE} ] ; then
             rm ${PID_FILE}
         fi
-        ssh-agent -s -t 4h30m -a ${PID_FILE} >${INFO_FILE}
+        ssh-agent -s -t ${SSH_AGENT_LIFETIME} -a ${PID_FILE} >${INFO_FILE}
     fi
     source ${INFO_FILE}
 
     # add key if not exists
     if ! ssh-add -l ; then
         ssh-add
+        [ -r ~/.ssh/nii-vm.key ] && ssh-add ~/.ssh/nii-vm.key
     fi
 
 }
