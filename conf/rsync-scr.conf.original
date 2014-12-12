@@ -1,0 +1,4 @@
+# DST_HOST=foo.example.org
+# DST_DIR=scr
+# DST_USER=bar
+# SRC_DIR=${HOME}/scr/
