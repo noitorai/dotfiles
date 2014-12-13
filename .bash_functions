@@ -1,18 +1,13 @@
-INFO_FILE="${HOME}/.ssh-agent"
-PID_FILE="${HOME}/.ssh-agent.pid"
-GREP=
+CONF_DIR=${HOME}/conf
+CONF_FILENAME=bash_functions.conf
+CONF_FILE_PATH=${CONF_DIR}/${CONF_FILENAME}
 
-case "${HOSTNAME}" in
-    "gothica" | "nii-vdebian" ) 
-        SSH_AGENT_LIFETIME="8h"
-        ;;
-    "force" )
-        SSH_AGENT_LIFETIME="4h30m"
-        ;; 
-    * )
-        SSH_AGENT_LIFETIME="8h"
-        ;;
-esac
+[ -r ${CONF_FILE_PATH}.default ] && . ${CONF_FILE_PATH}.default 
+[ -r ${CONF_FILE_PATH} ] && . ${CONF_FILE_PATH}
+if [ ! -r ${CONF_FILE_PATH}.default -a ! -r ${CONF_FILE_PATH} ]; then
+    echo "ERROR: This script requires ${CONF_FILE_PATH} or ${CONF_FILE_PATH}.default"
+    exit
+fi
 
 is_debian() {
     if [ ! -x /usr/bin/lsb_release ] ; then
