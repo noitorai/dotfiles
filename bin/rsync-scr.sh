@@ -6,10 +6,12 @@
 # TODO: option to set CONF_DIR
 
 CONF_DIR=${HOME}/conf
-if [ -r ${CONF_DIR}/rsync-scr.conf ]; then
-        . ${CONF_DIR}/rsync-scr.conf
+CONF_FILENAME=rsync-scr.conf
+CONF_FILE_PATH=${CONF_DIR}/${CONF_FILENAME}
+if [ -r ${CONF_FILE_PATH} ]; then
+        . ${CONF_FILE_PATH}
 else
-        echo "ERROR: This script requires ../conf/rsysnc-scr.conf"
+        echo "ERROR: This script requires ${CONF_FILE_PATH}"
         exit
 fi
 
