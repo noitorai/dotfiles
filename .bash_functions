@@ -5,8 +5,16 @@ CONF_FILE_PATH=${CONF_DIR}/${CONF_FILENAME}
 [ -r ${CONF_FILE_PATH}.default ] && . ${CONF_FILE_PATH}.default 
 [ -r ${CONF_FILE_PATH} ] && . ${CONF_FILE_PATH}
 if [ ! -r ${CONF_FILE_PATH}.default -a ! -r ${CONF_FILE_PATH} ]; then
-    echo "ERROR: This script requires ${CONF_FILE_PATH} or ${CONF_FILE_PATH}.default"
-    exit
+    echo "WARN: This script requires ${CONF_FILE_PATH} or ${CONF_FILE_PATH}.default"
+fi
+if [ "x${INFO_FILE}" = "x" ]; then
+    INFO_FILE="${HOME}/.ssh-agent"
+fi
+if [ "x${PID_FILE}" = "x" ]; then
+    PID_FILE="${HOME}/.ssh-agent.pid"
+fi
+if [ "x${SSH_AGENT_LIFETIME}" = "x" ]; then
+    SSH_AGENT_LIFETIME="8h"
 fi
 
 is_debian() {
