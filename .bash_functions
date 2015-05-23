@@ -1,6 +1,21 @@
-INFO_FILE="${HOME}/.ssh-agent"
-PID_FILE="${HOME}/.ssh-agent.pid"
-GREP=
+CONF_DIR=${HOME}/conf
+CONF_FILENAME=bash_functions.conf
+CONF_FILE_PATH=${CONF_DIR}/${CONF_FILENAME}
+
+[ -r ${CONF_FILE_PATH}.default ] && . ${CONF_FILE_PATH}.default 
+[ -r ${CONF_FILE_PATH} ] && . ${CONF_FILE_PATH}
+if [ ! -r ${CONF_FILE_PATH}.default -a ! -r ${CONF_FILE_PATH} ]; then
+    echo "WARN: This script requires ${CONF_FILE_PATH} or ${CONF_FILE_PATH}.default"
+fi
+if [ "x${INFO_FILE}" = "x" ]; then
+    INFO_FILE="${HOME}/.ssh-agent"
+fi
+if [ "x${PID_FILE}" = "x" ]; then
+    PID_FILE="${HOME}/.ssh-agent.pid"
+fi
+if [ "x${SSH_AGENT_LIFETIME}" = "x" ]; then
+    SSH_AGENT_LIFETIME="8h"
+fi
 
 is_debian() {
     if [ ! -x /usr/bin/lsb_release ] ; then
@@ -59,13 +74,14 @@ load_sshagent() {
         if [ -e ${PID_FILE} ] ; then
             rm ${PID_FILE}
         fi
-        ssh-agent -s -t 4h30m -a ${PID_FILE} >${INFO_FILE}
+        ssh-agent -s -t ${SSH_AGENT_LIFETIME} -a ${PID_FILE} >${INFO_FILE}
     fi
     source ${INFO_FILE}
 
     # add key if not exists
     if ! ssh-add -l ; then
         ssh-add
+        [ -r ~/.ssh/nii-vm.key ] && ssh-add ~/.ssh/nii-vm.key
     fi
 
 }

@@ -1,0 +1,4 @@
+INFO_FILE="${HOME}/.ssh-agent"
+PID_FILE="${HOME}/.ssh-agent.pid"
+GREP=
+SSH_AGENT_LIFETIME="8h"
