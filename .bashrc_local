@@ -13,6 +13,7 @@ fi
 # I prefer C in time output and message output
 export LC_TIME="C"  LC_MESSAGES="C"
 
+export PATH=${HOME}/bin:$PATH
 
 # load my functions
 source ~/.bash_functions
