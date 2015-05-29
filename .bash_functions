@@ -133,3 +133,30 @@ function scrreplay {
     gzip ${SCRIPTFILE}
 #    gzip ${SCRIPTFILE}.${TIMING}
 }
+
+pls_usage() {
+        echo "usage: $0 [option] [pattern1] [pattern2]..."
+}
+
+pls() {
+
+        if [ $# -eq 0 ]; then
+                pls_usage
+                exit 1
+        fi
+        
+        lspat="*"
+        grpat=""
+        while [ $# -gt 0 ]
+        do
+                lspat="${lspat}$1*"
+                if [ "x${grpat}" = "x" ]; then
+                        grpat=$1
+                else
+                        grpat="${grpat}\|$1"
+                fi
+                shift
+        done
+        
+        ls -altr $lspat |grep --color "$grpat"
+}
