@@ -8,13 +8,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-XMODMAP=/usr/bin/xmodmap
-if [ "x$SSH_TTY" = "x" ]; then
-    if [ -f ~/.xmodmap ]; then
-        $XMODMAP ~/.xmodmap
-    fi
-fi
-
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
