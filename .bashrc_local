@@ -20,3 +20,13 @@ source ~/.bash_functions
 
 alias ssh=ssh_chkagent
 alias sshe="/usr/local/bin/cocot -t UTF-8 -p EUC-JP -- ssh"
+
+enable_tracpadconf() {
+        sudo /bin/bash -c 'cd /etc/X11/xorg.conf.d; ln -sf 50-synaptics.conf.tracpad-on 50-synaptics.conf'
+        ls -l /etc/X11/xorg.conf.d/50-synaptics.conf
+}
+
+disable_tracpadconf() {
+        sudo /bin/bash -c 'cd /etc/X11/xorg.conf.d; ln -sf 50-synaptics.conf.tracpad-off 50-synaptics.conf'
+        ls -l /etc/X11/xorg.conf.d/50-synaptics.conf
+}
