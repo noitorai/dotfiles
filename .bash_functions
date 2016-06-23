@@ -41,6 +41,13 @@ is_solaris() {
    return $?
 }
 
+is_rhel() {
+  if [ ! -e /etc/redhat-release ] ; then
+          return 1
+  fi
+  return 0
+}
+
 set_grep() {
         if [ ! "x${GREP}" = "x" ] ; then
               return 0
@@ -50,6 +57,8 @@ set_grep() {
                 GREP="/bin/grep"
         elif is_solaris ; then
                 GREP="/usr/sfw/bin/ggrep"
+        elif [ is_rhel = 0 ]; then
+                GREP="/usr/bin/grep"
         else
                 GREP="/bin/grep"
         fi
@@ -94,7 +103,7 @@ terminate_sshagent() {
 
 ssh_chkagent() {
     load_sshagent
-    `which ssh` $@
+    `which --skip-alias ssh` $@
 }
 
 ### config for saving script 
