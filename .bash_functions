@@ -67,14 +67,20 @@ set_grep() {
 
 check_sshagent() {
     set_grep
-    pgrep -V |grep 3.3.9 >/dev/null
-    if [ $? -eq 0 ] ; then
-      pgrep_op="-a"
+    which pgrep >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        pgrep -V |${GREP} 3.3.9 >/dev/null
+        if [ $? -eq 0 ] ; then
+          pgrep_op="-a"
+        else
+          pgrep_op="-lf"
+        fi
+        pgrep ${pgrep_op} -u ${USER} ssh-agent | ${GREP} -E -- "-a +${INFO_FILE}"
+        return $?
     else
-      pgrep_op="-lf"
+        ps -efu ${USER} |${GREP} ssh-agent >/dev/null
+        return $?
     fi
-    pgrep ${pgrep_op} -u ${USER} ssh-agent | ${GREP} -E -- "-a +${INFO_FILE}"
-    return $?
 }
 
 load_sshagent() {
