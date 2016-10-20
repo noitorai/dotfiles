@@ -58,12 +58,13 @@ set_grep() {
 
 check_sshagent() {
     set_grep
-    pgrep -V |grep 3.3.9 >/dev/null
-    if [ $? -eq 0 ] ; then
-      pgrep_op="-a"
-    else
-      pgrep_op="-lf"
-    fi
+    # pgrep -V |grep 3.3.9 >/dev/null
+    #if [ $? -eq 0 ] ; then
+    #  pgrep_op="-a"
+    #else
+    #  pgrep_op="-lf"
+    #fi
+    pgrep_op="-a"
     pgrep ${pgrep_op} -u ${USER} ssh-agent | ${GREP} -E -- "-a +${INFO_FILE}"
     return $?
 }
