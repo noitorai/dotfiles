@@ -20,3 +20,5 @@ source ~/.bash_functions
 
 alias ssh=ssh_chkagent
 alias sshe="/usr/local/bin/cocot -t UTF-8 -p EUC-JP -- ssh"
+
+eval `dircolors.exe ~/prj/dircolors-solarized/dircolors.ansi-dark`
