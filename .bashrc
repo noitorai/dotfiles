@@ -32,13 +32,13 @@ case "$TERM" in
     screen)         color_prompt=yes;;
 esac
 
-if [ "$color_prompt" = yes ]; then
-    # <username>@<hostname>:<pwd>[YYYY/MM/DD HH:MM:SS]$
-    PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]:\[\033[01;34m\]\[\033[00m\]\[\033[01;30m\][\$(date +%Y/%m/%d\ %H:%M:%S)]\[\033[00m\]\n\$ "
-else
-    PS1="\h\$ "
-fi
-unset color_prompt
+#if [ "$color_prompt" = yes ]; then
+#    # <username>@<hostname>:<pwd>[YYYY/MM/DD HH:MM:SS]$
+#    PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]:\[\033[01;34m\]\[\033[00m\]\[\033[01;30m\][\$(date +%Y/%m/%d\ %H:%M:%S)]\[\033[00m\]\n\$ "
+#else
+#    PS1="\h\$ "
+#fi
+#unset color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
