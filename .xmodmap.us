@@ -2,13 +2,16 @@ remove Lock = Caps_Lock
 remove Control = Control_L
 remove mod1 = Alt_R
 remove control = Control_R
+remove mod4 = Super_R
 
 keycode 37 = Caps_Lock
 keycode 66 = Control_L
 keycode 108 = Control_R
 keycode 105 = Alt_R
+keycode 107 = Super_R
 
 add Lock = Caps_Lock
 add Control = Control_L
 add Control = Control_R
 add mod1 = Alt_R
+add mod4 = Super_R
