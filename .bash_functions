@@ -104,7 +104,7 @@ terminate_sshagent() {
 
 ssh_chkagent() {
     load_sshagent
-    `which --skip-alias ssh` $@
+    `type -P ssh` $@
 }
 
 ### config for saving script 
