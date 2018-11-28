@@ -26,3 +26,9 @@ fi
 
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+which rbenv >/dev/null
+if [ $? ]; then
+  eval "$(rbenv init -)"
+fi
