@@ -32,3 +32,5 @@ which rbenv >/dev/null
 if [ $? ]; then
   eval "$(rbenv init -)"
 fi
+
+export DISPLAY=127.0.0.1:0.0
