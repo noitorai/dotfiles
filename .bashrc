@@ -33,10 +33,22 @@ case "$TERM" in
 esac
 
 if [ "$color_prompt" = yes ]; then
-    # ┌─[<username>@<hostname>] - [<pwd>] - [YYYY/MM/DD HH:MM:SS]
+    # ┌─[<username>@<hostname>]─[pwd> (branch)]─[YYYY/MM/DD HH:MM:SS]
     # └─[$] 
-    PS1="\[\e[0;34m\]┌─[\[\e[1;32m\]\u\[\e[1;31m\]@\[\e[1;33m\]\h\[\e[0;34m\]]\[\e[m\] - \[\e[0;34m\][\[\e[1;36m\]\w\[\e[0;34m\]]\[\e[m\] - \[\e[0;34m\][\[\e[1;36m\]$(date +%Y/%m/%d\ %H:%M:%S)\[\e[m\]\[\e[;34m\]]\n└─[\[\e[0;31m\]$\[\e[ [\033[0m\]\[\e[0;34m\]]\[\e[m\] "
-    PS1="\[\e[0;34m\]┌─[\[\e[1;32m\]\u\[\e[1;30m\]@\[\e[0;32m\]\h\[\e[0;34m\]]\[\e[m\] - \[\e[0;34m\][\[\e[1;36m\]\w\[\e[0;34m\]]\[\e[m\] - \[\e[0;34m\][\[\e[1;36m\]$(date +%Y/%m/%d\ %H:%M:%S)\[\e[m\]\[\e[;34m\]]\n└─[\[\e[0;31m\]$\[\e[ [\033[0m\]\[\e[0;34m\]]\[\e[m\] "
+   prefix_1="┌─"
+   prefix_2="└─"
+   decoration_line="─"
+   color_decoration="\[\e[0;34m\]" 
+   color_user="\[\e[1;32m\]"
+   color_at="\[\e[1;30m\]"
+   color_dir="\[\e[1;36m\]"
+   color_time="\[\e[1;36m\]" 
+   color_git="\[\e[1;35m\]" 
+   color_symbol="\[\e[0;31m\]"
+   color_host="\[\e[0;32m\]"
+   color_reset="\[\e[m\]"
+   prompt_symbol="$"
+   PS1="${color_decoration}${prefix_1}[${color_user}\u${color_at}@${color_host}\h${color_decoration}]${decoration_line}[${color_dir}\w${color_git}"'$(__git_ps1)'"${color_decoration}]\n${prefix_2}[${color_symbol}${prompt_symbol}${color_decoration}]${color_reset} "
 else
     PS1="\h\$ "
 fi
