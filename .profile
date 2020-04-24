@@ -16,13 +16,13 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin and local/bin if it exists
-if [ -d "${HOME}/bin" ] ; then
-    PATH="${HOME}/bin:${PATH}"
-fi
-if [ -d "${HOME}/local/bin" ] ; then
-    PATH="${HOME}/local/bin:${PATH}"
-fi
+# set PATH so it includes user's private bin if it exists
+for d in $HOME/{,.local/,local/}bin
+do
+    if [ -d "$d" ] ; then
+        PATH="$d:$PATH"
+    fi
+done
 
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
