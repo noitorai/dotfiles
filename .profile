@@ -33,4 +33,6 @@ if [ $? -eq 0 ]; then
   eval "$(rbenv init -)"
 fi
 
-export DISPLAY=127.0.0.1:0.0
+if [ "x$DISPLAY" = "x" ]; then
+  export DISPLAY=127.0.0.1:0.0
+fi
