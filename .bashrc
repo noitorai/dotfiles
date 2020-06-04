@@ -35,9 +35,6 @@ esac
 if [ "$color_prompt" = yes ]; then
     # ┌─[<username>@<hostname>]─[pwd> (branch)]─[YYYY/MM/DD HH:MM:SS]
     # └─[$] 
-   prefix_1="┌─"
-   prefix_2="└─"
-   decoration_line="─"
    color_decoration="\[\e[0;34m\]" 
    color_user="\[\e[1;32m\]"
    color_at="\[\e[1;30m\]"
@@ -48,7 +45,8 @@ if [ "$color_prompt" = yes ]; then
    color_host="\[\e[0;32m\]"
    color_reset="\[\e[m\]"
    prompt_symbol="$"
-   PS1="${color_decoration}${prefix_1}[${color_user}\u${color_at}@${color_host}\h${color_decoration}]${decoration_line}[${color_dir}\w${color_git}"'$(__git_ps1)'"${color_decoration}]\n${prefix_2}[${color_symbol}${prompt_symbol}${color_decoration}]${color_reset} "
+   PS1="${color_decoration}(${color_time}\t${color_decoration}) ${color_decoration}${color_user}\u${color_at}@${color_host}\h${color_decoration}:${color_dir}\w${color_git}"'$(__git_ps1)'"${color_decoration}>\n${color_symbol}${prompt_symbol}${color_decoration}${color_reset} "
+
 else
     PS1="\h\$ "
 fi
