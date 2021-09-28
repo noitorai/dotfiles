@@ -170,3 +170,7 @@ pls() {
         
         ls -altr $lspat |grep --color "$grpat"
 }
+
+prjjump() {
+   cd $(dirname $(mlocate --regex '/.git$' |grep $USER |grep -v '/.go/') |fzf --preview "batcat --color=always --style=header,grid --line-range :80 {}/README*")
+}
