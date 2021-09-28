@@ -34,5 +34,16 @@ if [ $? -eq 0 ]; then
 fi
 
 if [ "x$DISPLAY" = "x" ]; then
-  export DISPLAY=127.0.0.1:0.0
+  ##
+  ## We are in WSL2 ?
+  ##
+  #  Get this idea from:
+  #  - https://stackoverflow.com/questions/38086185/how-to-check-if-a-program-is-run-in-bash-on-ubuntu-on-windows-and-not-just-plain
+  #  - https://github.com/Microsoft/WSL/issues/423
+  if grep -qEi "(microsoft|wsl)" /proc/version &2> /dev/null ; then
+    export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
+  else
+    export DISPLAY=127.0.0.1:0.0
+  fi
+
 fi
