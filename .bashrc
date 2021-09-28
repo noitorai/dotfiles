@@ -103,3 +103,6 @@ fi
 if [ -f ~/.bashrc_local ] ; then
     . ~/.bashrc_local
 fi
+
+source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/doc/fzf/examples/completion.bash
