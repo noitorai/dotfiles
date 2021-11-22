@@ -33,6 +33,7 @@ if [ $? -eq 0 ]; then
   eval "$(rbenv init -)"
 fi
 
+## for X and vagrant
 if [ "x$DISPLAY" = "x" ]; then
   ##
   ## We are in WSL2 ?
@@ -42,8 +43,10 @@ if [ "x$DISPLAY" = "x" ]; then
   #  - https://github.com/Microsoft/WSL/issues/423
   if grep -qEi "(microsoft|wsl)" /proc/version &> /dev/null ; then
     export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
+    export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+    export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
   else
     export DISPLAY=127.0.0.1:0.0
   fi
-
 fi
+
