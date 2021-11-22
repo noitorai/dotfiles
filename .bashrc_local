@@ -20,6 +20,11 @@ source ~/.bash_functions
 
 alias ssh=ssh_chkagent
 alias sshe="/usr/local/bin/cocot -t UTF-8 -p EUC-JP -- ssh"
+alias tasks="rake -f ~/tasks/Rakefile"
+alias t=tasks
+alias pd="pushd \$(ghq list --full-path |fzf)"
+alias d="cd \$(dirs -p |fzf)"
+alias lab="http_proxy=socks5://127.0.0.1:1080 lab"
 
 enable_tracpadconf() {
         sudo /bin/bash -c 'cd /etc/X11/xorg.conf.d; ln -sf 50-synaptics.conf.tracpad-on 50-synaptics.conf'

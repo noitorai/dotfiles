@@ -174,3 +174,58 @@ pls() {
 prjjump() {
    cd $(dirname $(mlocate --regex '/.git$' |grep $USER |grep -v '/.go/') |fzf --preview "batcat --color=always --style=header,grid --line-range :80 {}/README*")
 }
+
+fzf-lab-issue() {
+
+	_usage() {
+        	cat <<_EOT_
+usage:
+  fzf-lab-issue <command> '<issue search args(*)>' <args>
+
+  (*): args for lab issue search command (e.g. "foo" --assgin bar --labels baz)
+_EOT_
+	}
+
+	if [ $# -eq 0 ]; then
+	        _usage
+	        return 1
+	elif [ $# -eq 1 ]; then
+		_command=$1
+	else
+		_command=$1
+		shift
+		_search_args=$1
+		shift
+		_args=$*
+	fi
+	# echo "_command: ${_command}"
+	# echo "_search_args: ${_search_args}"
+	# echo "_args: ${_args}"
+
+	## workaround: evalを経由しないとなぜかキーワード検索がうまく動かない
+	_c="lab issue search $_search_args |fzf"
+	_issue=$(eval "$_c")
+
+	# echo "_issue: $_issue"
+
+        _issue_id=$(echo "$_issue" |awk '{ sub("^#","",$1); print $1 }')
+
+	# echo "_issue_id: $_issue_id"
+	# echo "lab issue $_command $_issue_id"
+
+        lab issue $_command $_issue_id $_args
+}
+
+fzf-lab-issue-show-url() {
+	_usage() {
+        	cat <<_EOT_
+usage:
+  fzf-lab-issue-show-url <issue search args(*)>
+
+  (*): args for lab issue search command (e.g. "foo" --assgin bar --labels baz)
+_EOT_
+	}
+	_issue=$(lab issue search "$@" |fzf)
+        _issue_id=$(echo "$_issue" |awk '{ sub("^#","",$1); print $1 }')
+        lab issue show $_issue_id |awk '/^WebURL: / { print $2 }'
+}
