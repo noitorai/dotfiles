@@ -229,3 +229,8 @@ _EOT_
         _issue_id=$(echo "$_issue" |awk '{ sub("^#","",$1); print $1 }')
         lab issue show $_issue_id |awk '/^WebURL: / { print $2 }'
 }
+
+fzf-gtd-gen-title() {
+  lab issue search $1 |fzf |awk '{ sub("^#","[kanban#",$1); sub("$","]",$1); print $0; }'
+}
+
