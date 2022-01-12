@@ -225,12 +225,27 @@ usage:
   (*): args for lab issue search command (e.g. "foo" --assgin bar --labels baz)
 _EOT_
 	}
+    cd $(_kanban_path)
 	_issue=$(lab issue search "$@" |fzf)
-        _issue_id=$(echo "$_issue" |awk '{ sub("^#","",$1); print $1 }')
-        lab issue show $_issue_id |awk '/^WebURL: / { print $2 }'
+    _issue_id=$(echo "$_issue" |awk '{ sub("^#","",$1); print $1 }')
+    lab issue show $_issue_id |awk '/^WebURL: / { print $2 }'
 }
 
 fzf-lab-gen-gtd-title() {
-  lab issue search $* |fzf -m |awk '{ sub("^#","[kanban#",$1); sub("$","]",$1); print $0; }'
+    cd $(_kanban_path)
+    lab issue list $* |fzf -m |awk '{ sub("^#","[kanban#",$1); sub("$","]",$1); print $0; }'
 }
 
+fzf-lab-issue-browse() {
+    cd $(_kanban_path)
+    _issues=$(lab issue list $@ |fzf -m)
+    _issue_ids=$(echo "$_issues" |awk '{ sub("^#","",$1); print $1 }')
+    for n in $_issue_ids
+    do
+        lab issue browse $n
+    done
+}
+
+_kanban_path() {
+    ghq list --full-path kanban
+}
