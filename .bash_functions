@@ -216,6 +216,10 @@ _EOT_
         lab issue $_command $_issue_id $_args
 }
 
+_kanban_path() {
+    ghq list --full-path kanban
+}
+
 fzf-lab-issue-show-url() {
 	_usage() {
         	cat <<_EOT_
@@ -244,8 +248,4 @@ fzf-lab-issue-browse() {
     do
         lab issue browse $n
     done
-}
-
-_kanban_path() {
-    ghq list --full-path kanban
 }
