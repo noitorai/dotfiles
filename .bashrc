@@ -104,4 +104,9 @@ if [ -f ~/.bashrc_local ] ; then
 fi
 
 source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
+## from: /usr/share/doc/fzf/README.Debian:
+##   Note, since fzf 0.29.0-1, the bash completion is installed for
+##   bash by default. Feel free to ignore the following instruction
+##   for fzf >= 0.29.0-1.
+##
+##   source /usr/share/doc/fzf/examples/completion.bash
