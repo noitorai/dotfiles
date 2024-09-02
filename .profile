@@ -45,8 +45,8 @@ if [ "x$DISPLAY" = "x" ]; then
     export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
     export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
     export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
-  else
-    export DISPLAY=127.0.0.1:0.0
+  # We don't need to set DISPLAY in a non-WSL2 environment
+  # else
+  #   export DISPLAY=127.0.0.1:0.0
   fi
 fi
-
